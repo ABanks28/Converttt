@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 
+
 namespace Convert
 {
+
     class Converter
     {
         static void Main()
@@ -15,25 +17,26 @@ namespace Convert
             String infix = Console.ReadLine();
             infix = infix.Replace(" ", "");
             String postfix = "";
-            Stack st = new Stack();
+            Stack<char> st = new Stack<char>();
 
-            for (int i = 0; i < infix.Length; i++)
+            foreach (char t in infix)
             {
-                String t = infix.Substring(i, i + 1);
-                
-                if (t != "+" || t != "-" || t != "*" || t != "/")
+                if (!"+-*/()".Contains(t))
                 {
                     postfix = postfix + t;
                 }
-                if (t == "+" || t == "-" || t == "*" || t == "/")
+                else if (')' == t)
                 {
-                    st.Push(t);
+                    while (st.Pop() != '(' && !"+-*/".Contains(t))
+                    {
+                        st.Pop();
+                        postfix = postfix + t;
+                    }
                 }
-
+                else ()
             }
 
-            Console.WriteLine(postfix);
-            Console.ReadLine();
         }
     }
+
 }
